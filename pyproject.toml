@@ -1,0 +1,113 @@
+[project]
+name = "f1"
+version = "0.1.0"
+description = "Python SDK moderno, tipado e resiliente para consumo e análise de dados da OpenF1 API"
+authors = [
+    { name = "Fabiano Ferreira", email = "estudarpos.nascimento@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.12.10,<4.0"
+dependencies = [
+    "pydantic>=2.7.0",
+    "requests>=2.31.0",
+    "pandas>=2.2.0",
+    "streamlit>=1.35.0",
+    "plotly>=5.20.0",
+]
+
+[tool.poetry]
+packages = [{ include = "f1", from = "src" }]
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8.2.0"
+pytest-cov = ">=5.0.0"
+pytest-mock = ">=3.14.0"
+ruff = ">=0.4.0"
+mkdocs = ">=1.6.0"
+mkdocs-material = ">=9.5.0"
+taskipy = ">=1.12.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# ---------------------------------------------------------
+# Automação de Tarefas com Taskipy
+# ---------------------------------------------------------
+[tool.taskipy.tasks]
+test = "pytest --cov=f1 --cov-report=term-missing --cov-fail-under=50"
+pre_lint = "ruff format --check ."
+lint = "ruff check ."
+format = "ruff format ."
+post_format = "ruff check . --fix"
+docs = "mkdocs serve"
+build-docs = "mkdocs build --strict"
+dashboard = "streamlit run src/f1/dashboard.py"
+
+# ---------------------------------------------------------
+# Configuração do Ruff (Linter e Formatter)
+# ---------------------------------------------------------
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle erros
+    "W",      # pycodestyle avisos
+    "F",      # pyflakes
+    "I",      # isort (organização de imports)
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade (sintaxe moderna)
+    "ARG",    # flake8-unused-arguments
+    "SIM",    # flake8-simplify
+    "PTH",    # flake8-use-pathlib
+]
+ignore = [
+    "E501",   # Comprimento de linha delegado ao formatador
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["f1"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+# ---------------------------------------------------------
+# Configuração do Pytest e Cobertura
+# ---------------------------------------------------------
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["src/f1"]
+omit = [
+    "*/__init__.py",
+    "*/tests/*",
+    "*/dashboard.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+fail_under = 50
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
