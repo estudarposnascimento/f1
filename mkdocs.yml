@@ -1,0 +1,36 @@
+site_name: F1 - OpenF1 Python SDK
+site_description: Documentação técnica completa e guias de uso da biblioteca F1 para a API OpenF1.
+theme:
+  name: material
+  language: pt-BR
+  palette:
+    - scheme: default
+      primary: red
+      accent: red
+      toggle:
+        icon: material/brightness-7
+        name: Mudar para modo escuro
+    - scheme: slate
+      primary: red
+      accent: red
+      toggle:
+        icon: material/brightness-4
+        name: Mudar para modo claro
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+nav:
+  - Início: index.md
+  - Instalação e Setup: setup.md
+  - Arquitetura: architecture.md
+  - Referência da API: api_reference.md
+  - Testes e Qualidade: testing.md
+
+plugins:
+  - search
+
