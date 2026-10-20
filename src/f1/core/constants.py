@@ -68,4 +68,3 @@ class CircuitType(str, Enum):
     PERMANENT = "Permanent"
     TEMPORARY_STREET = "Temporary - Street"
     TEMPORARY_ROAD = "Temporary - Road"
-

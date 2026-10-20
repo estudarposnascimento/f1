@@ -33,4 +33,3 @@ def format_utc_iso(dt: datetime) -> str:
     else:
         dt = dt.astimezone(UTC)
     return dt.isoformat()
-

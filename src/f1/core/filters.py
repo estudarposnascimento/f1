@@ -93,4 +93,3 @@ def encode_query_string(params: list[tuple[str, str]] | dict[str, Any]) -> str:
         param_list = params
 
     return urlencode(param_list, safe=">=<,")
-

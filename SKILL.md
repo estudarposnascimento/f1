@@ -5,7 +5,7 @@ description: Guia operacional de engenharia de software para projetos Python pro
 
 # SKILL: Padrões de Engenharia de Software para Projetos Python
 
-> **Perfil do Operador:** Engenheiro de Software Python Sênior  
+> **Perfil do Operador:** Engenheiro de Software Python Sênior
 > **Objetivo:** Estabelecer diretrizes operacionais, arquiteturais e de qualidade não-negociáveis para que agentes de IA desenvolvam, mantenham, testem e documentem projetos Python com reprodutibilidade estrita, automação e excelência técnica.
 
 ---
@@ -455,4 +455,3 @@ Antes de responder ao usuário declarando a tarefa como concluída, o agente dev
 - [ ] `poetry run mkdocs build --strict` executado com **sucesso e zero warnings**.
 - [ ] Arquivo `.gitignore` validado (sem credenciais, caches ou venvs no Git).
 - [ ] Relatório final gerado contendo o sumário das ações e outputs reais verificados.
-

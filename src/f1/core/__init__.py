@@ -58,4 +58,3 @@ __all__ = [
     "build_filter_params",
     "encode_query_string",
 ]
-

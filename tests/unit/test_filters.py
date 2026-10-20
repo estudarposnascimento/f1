@@ -1,6 +1,6 @@
 """Testes unitários para o construtor e serializador de filtros."""
 
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 
 from f1.core.filters import (
     build_filter_params,
@@ -19,7 +19,7 @@ class TestFilters:
         assert serialize_value(45.67) == "45.67"
         assert serialize_value("latest") == "latest"
 
-        dt = datetime(2023, 9, 15, 13, 8, 19, tzinfo=timezone.utc)
+        dt = datetime(2023, 9, 15, 13, 8, 19, tzinfo=UTC)
         assert serialize_value(dt) == "2023-09-15T13:08:19+00:00"
 
         d = date(2023, 9, 15)
@@ -66,4 +66,3 @@ class TestFilters:
         qs = encode_query_string(data)
         assert "speed>=315" in qs
         assert "session_key=latest" in qs
-

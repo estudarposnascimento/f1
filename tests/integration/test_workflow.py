@@ -82,4 +82,3 @@ class TestE2EWorkflow:
 
         assert mean_speed == 315.0
         assert max_rpm == 11200
-

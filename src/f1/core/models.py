@@ -1,4 +1,4 @@
-﻿"""Modelos Pydantic v2 para as entidades da OpenF1 API."""
+"""Modelos Pydantic v2 para as entidades da OpenF1 API."""
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -348,7 +348,9 @@ class Weather(OpenF1BaseModel):
         default=None, description="Temperatura do ar em Â°C"
     )
     date: str = Field(..., description="Timestamp ISO 8601 da leitura")
-    humidity: float | None = Field(default=None, description="Umidade relativa do ar (%)")
+    humidity: float | None = Field(
+        default=None, description="Umidade relativa do ar (%)"
+    )
     meeting_key: int | str = Field(..., description="ID do evento ou 'latest'")
     pressure: float | None = Field(
         default=None, description="PressÃ£o atmosfÃ©rica em mbar"
@@ -366,4 +368,3 @@ class Weather(OpenF1BaseModel):
     wind_speed: float | None = Field(
         default=None, description="Velocidade do vento em m/s"
     )
-

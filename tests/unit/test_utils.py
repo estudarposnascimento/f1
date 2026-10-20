@@ -1,6 +1,6 @@
 """Testes unitários para utilitários de datetime e pandas DataFrame."""
 
-from datetime import UTC, datetime, timezone
+from datetime import UTC, datetime
 
 import pandas as pd
 
@@ -33,7 +33,9 @@ class TestDataframeUtils:
         assert df.empty
 
     def test_to_dataframe_from_csv_string(self):
-        csv_data = "driver_number,name_acronym,team_name\n1,VER,Red Bull\n44,HAM,Mercedes\n"
+        csv_data = (
+            "driver_number,name_acronym,team_name\n1,VER,Red Bull\n44,HAM,Mercedes\n"
+        )
         df = to_dataframe(csv_data)
         assert isinstance(df, pd.DataFrame)
         assert len(df) == 2
@@ -73,7 +75,6 @@ class TestDatetimeUtils:
         assert "+00:00" in formatted or "Z" in formatted
 
     def test_format_utc_iso_aware(self):
-        dt = datetime(2023, 9, 15, 13, 8, 19, tzinfo=timezone.utc)
+        dt = datetime(2023, 9, 15, 13, 8, 19, tzinfo=UTC)
         formatted = format_utc_iso(dt)
         assert formatted == "2023-09-15T13:08:19+00:00"
-

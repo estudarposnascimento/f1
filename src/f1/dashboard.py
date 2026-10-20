@@ -114,9 +114,7 @@ def load_session_results(session_key: int | str) -> pd.DataFrame:
 def load_laps(session_key: int | str, driver_number: int) -> pd.DataFrame:
     """Carrega os tempos de volta de um piloto."""
     try:
-        laps = client.get_laps(
-            session_key=session_key, driver_number=driver_number
-        )
+        laps = client.get_laps(session_key=session_key, driver_number=driver_number)
         return to_dataframe(laps)
     except OpenF1Exception:
         return pd.DataFrame()
@@ -188,8 +186,7 @@ if not meetings_data:
     meetings_data = load_meetings(2023)
 
 meeting_options = {
-    f"{m.get('meeting_name', 'GP')} - {m.get('location', '')}": m
-    for m in meetings_data
+    f"{m.get('meeting_name', 'GP')} - {m.get('location', '')}": m for m in meetings_data
 }
 
 if meeting_options:
@@ -341,9 +338,7 @@ with tab_overview:
             ]
             if c in df_merged.columns
         ]
-        df_display = df_merged[display_cols].sort_values(
-            by="position", ascending=True
-        )
+        df_display = df_merged[display_cols].sort_values(by="position", ascending=True)
         st.dataframe(df_display, use_container_width=True, hide_index=True)
     else:
         st.info(
@@ -361,9 +356,9 @@ with tab_overview:
                 st.markdown(
                     f"""
                     <div style="border-left: 4px solid #{team_color}; background-color: #17181C; padding: 10px 14px; border-radius: 6px; margin-bottom: 8px;">
-                        <b style="font-size: 1.1rem; color: #FFF;">#{d.get('driver_number')} {d.get('name_acronym')}</b><br/>
-                        <span style="color: #A0AAB2; font-size: 0.9rem;">{d.get('full_name')}</span><br/>
-                        <span style="color: #{team_color}; font-weight: 600; font-size: 0.85rem;">{d.get('team_name')}</span>
+                        <b style="font-size: 1.1rem; color: #FFF;">#{d.get("driver_number")} {d.get("name_acronym")}</b><br/>
+                        <span style="color: #A0AAB2; font-size: 0.9rem;">{d.get("full_name")}</span><br/>
+                        <span style="color: #{team_color}; font-weight: 600; font-size: 0.85rem;">{d.get("team_name")}</span>
                     </div>
                     """,
                     unsafe_allow_html=True,
@@ -390,9 +385,7 @@ with tab_telemetry:
                 key="telemetry_driver_1",
             )
             d1_num = drivers_map[sel_driver_1]["driver_number"]
-            d1_color = (
-                "#" + (drivers_map[sel_driver_1].get("team_colour") or "E10600")
-            )
+            d1_color = "#" + (drivers_map[sel_driver_1].get("team_colour") or "E10600")
 
         with col_sel2:
             sel_driver_2 = st.selectbox(
@@ -701,6 +694,4 @@ with tab_radio:
                 st.write(f"🎙️ **Piloto #{driver_num}**")
                 st.audio(audio_url)
         else:
-            st.info(
-                "Nenhum áudio de rádio disponibilizado para esta sessão pela FOM."
-            )
+            st.info("Nenhum áudio de rádio disponibilizado para esta sessão pela FOM.")

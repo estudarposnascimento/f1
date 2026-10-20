@@ -848,4 +848,3 @@ csv_url = "https://api.openf1.org/v1/meetings?year=2024&csv=true"
 df_meetings = pd.read_csv(csv_url)
 print(df_meetings[["meeting_name", "location", "date_start"]])
 ```
-

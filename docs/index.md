@@ -49,4 +49,3 @@ print(df[["speed", "rpm", "throttle", "brake"]].describe())
 - [Arquitetura](architecture.md): Organização interna das camadas `core`, `clients` e `utils`.
 - [Referência da API](api_reference.md): Catálogo completo dos 18 endpoints e seus métodos no cliente.
 - [Testes e Qualidade](testing.md): Procedimentos para rodar a suíte de testes com medição de cobertura e linter Ruff.
-

@@ -37,4 +37,3 @@ def to_dataframe(
             records.append(dict(item))
 
     return pd.DataFrame(records)
-

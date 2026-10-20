@@ -1,12 +1,9 @@
 """Testes unitários para BaseHTTPClient e OpenF1Client."""
 
-from unittest.mock import MagicMock
-
 import pytest
 import requests
 
 from f1.clients.base import BaseHTTPClient
-from f1.clients.openf1 import OpenF1Client
 from f1.core.models import (
     CarData,
     CarLocation,

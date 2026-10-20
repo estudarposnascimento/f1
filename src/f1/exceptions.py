@@ -26,4 +26,3 @@ class OpenF1ConnectionError(OpenF1Exception):
 
 class OpenF1ValidationError(OpenF1Exception):
     """Exceção levantada quando parâmetros ou dados de resposta são inválidos."""
-

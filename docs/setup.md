@@ -69,4 +69,3 @@ O arquivo `pyproject.toml` isola as dependências em dois grupos:
     - `pytest-mock>=3.14.0`: Mocks e fixtures avançadas.
     - `ruff>=0.4.0`: Linter e formatador estático unificado.
     - `mkdocs>=1.6.0` e `mkdocs-material>=9.5.0`: Site estático de documentação técnica.
-

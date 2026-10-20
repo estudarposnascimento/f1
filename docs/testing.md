@@ -64,4 +64,3 @@ Para validar se não há links quebrados nem advertências de compilação:
 ```bash
 poetry run mkdocs build --strict
 ```
-

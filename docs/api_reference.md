@@ -41,4 +41,3 @@ Todos os métodos aceitam filtros nos argumentos nomeados:
 - **Valores Múltiplos:** `driver_number=[4, 81]`
 - **Identificador `latest`:** `session_key="latest"` ou `meeting_key="latest"`
 - **Exportação CSV:** `csv=True` para receber a resposta em texto tabular puro.
-

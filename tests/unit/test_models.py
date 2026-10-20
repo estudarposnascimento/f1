@@ -225,4 +225,3 @@ class TestModelsValidation:
         assert obj.track_temperature == 52.5
         assert obj.rainfall == 0
         assert obj.wind_speed == 2.4
-

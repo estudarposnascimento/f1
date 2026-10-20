@@ -265,4 +265,3 @@ def mock_session(mock_response_builder):
 def client(mock_session):
     """Instância do OpenF1Client injetando a sessão mockada."""
     return OpenF1Client(session=mock_session)
-

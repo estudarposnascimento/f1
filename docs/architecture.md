@@ -40,4 +40,3 @@ flowchart TD
 - `OpenF1APIError`: Disparada sob falhas de código HTTP 4xx ou 5xx.
 - `OpenF1ConnectionError`: Disparada sob desconexão ou timeout.
 - `OpenF1ValidationError`: Disparada sob dados de entrada ou respostas inválidas.
-

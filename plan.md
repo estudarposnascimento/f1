@@ -1,8 +1,8 @@
 # Plano de Implementação do Projeto F1 (OpenF1 Python SDK)
 
-> **Documento:** `plan.md`  
-> **Status:** Aprovado para Execução  
-> **Fontes de Referência:** [`doc.api.md`](file:///c:/workspace/projeto_python/projeto_aula/f1/doc.api.md) e [`SKILL.md`](file:///c:/workspace/projeto_python/projeto_aula/f1/SKILL.md)  
+> **Documento:** `plan.md`
+> **Status:** Aprovado para Execução
+> **Fontes de Referência:** [`doc.api.md`](file:///c:/workspace/projeto_python/projeto_aula/f1/doc.api.md) e [`SKILL.md`](file:///c:/workspace/projeto_python/projeto_aula/f1/SKILL.md)
 > **Diretrizes Arquiteturais:** Python 3.12+, Poetry, `src/` layout, Pydantic v2, Ruff, Pytest (cobertura >= 50%), MkDocs Material.
 
 ---
@@ -142,7 +142,7 @@ O desenvolvimento seguirá o ciclo estrito em 12 etapas estabelecido na seção 
 - [ ] Implementar `tests/unit/test_client.py` mockando respostas HTTP e testando cenários de sucesso, respostas vazias e tratamento de falhas (4xx/5xx).
 - [ ] Implementar `tests/unit/test_utils.py` testando conversão de datas e transformação em DataFrame.
 - [ ] Implementar `tests/integration/test_workflow.py` validando o ciclo completo mockado (requisição -> validação -> manipulação).
-- [ ] Validar cobertura com comando obrigatório:  
+- [ ] Validar cobertura com comando obrigatório:
   `poetry run pytest --cov=f1 --cov-report=term-missing --cov-fail-under=50`.
 
 ### Fase 6: Validação de Qualidade e Formatação com Ruff
@@ -175,4 +175,3 @@ O desenvolvimento seguirá o ciclo estrito em 12 etapas estabelecido na seção 
 | **Tipagem Estrita** | 100% das assinaturas públicas tipadas | Type hints em funções, métodos e modelos Pydantic |
 | **Compilação de Docs** | Zero warnings ou links quebrados | `mkdocs build --strict` |
 | **Segurança e Segredos** | Zero credenciais no Git | `.gitignore` configurado e auditado |
-

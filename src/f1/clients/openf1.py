@@ -62,9 +62,7 @@ class OpenF1Client(BaseHTTPClient):
         self, *, csv: bool = False, **filters: Any
     ) -> list[ChampionshipDriver]: ...
     @overload
-    def get_championship_drivers(
-        self, *, csv: bool = True, **filters: Any
-    ) -> str: ...
+    def get_championship_drivers(self, *, csv: bool = True, **filters: Any) -> str: ...
     def get_championship_drivers(
         self, *, csv: bool = False, **filters: Any
     ) -> list[ChampionshipDriver] | str:
