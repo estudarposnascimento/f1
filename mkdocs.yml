@@ -29,6 +29,7 @@ nav:
   - Instalação e Setup: setup.md
   - Arquitetura: architecture.md
   - Referência da API: api_reference.md
+  - Pipeline analítico: tables_and_join.md
   - Testes e Qualidade: testing.md
 
 plugins:

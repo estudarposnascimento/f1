@@ -6,6 +6,10 @@ Bem-vindo à documentação oficial do **`f1`**, o SDK Python moderno, fortement
 
 ## Destaques do Projeto
 
+> O escopo atualmente implementado é o SDK cliente descrito neste guia. O pipeline
+> analítico com DuckDB está documentado como arquitetura-alvo e ainda não faz parte da
+> implementação atual.
+
 - **18 Endpoints Mapeados:** Acesso total a telemetria (`car_data`), cronometragem volta a volta (`laps`), posições, rádios de comunicação, clima, resultados homologados e campeonatos de pilotos e construtores.
 - **Modelagem Pydantic v2:** Validação em runtime com schemas fortemente tipados, serialização nativa e autocompletion no seu editor.
 - **Resiliência de Rede:** Cliente HTTP com retry e backoff exponencial automático para erros transitórios (429, 500, 502, 503, 504) e controle de timeouts.
@@ -48,4 +52,5 @@ print(df[["speed", "rpm", "throttle", "brake"]].describe())
 - [Instalação e Setup](setup.md): Como preparar seu ambiente local usando pyenv e Poetry.
 - [Arquitetura](architecture.md): Organização interna das camadas `core`, `clients` e `utils`.
 - [Referência da API](api_reference.md): Catálogo completo dos 18 endpoints e seus métodos no cliente.
+- [Especificação do pipeline analítico](tables_and_join.md): Camadas RAW, METADATA e REFINED, catálogo de endpoints e regras de relacionamento planejadas.
 - [Testes e Qualidade](testing.md): Procedimentos para rodar a suíte de testes com medição de cobertura e linter Ruff.

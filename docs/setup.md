@@ -19,7 +19,7 @@ O projeto requer:
 ### 1. Clonar o Repositório
 
 ```bash
-git clone https://github.com/seu-usuario/f1.git
+git clone https://github.com/estudarposnascimento/f1.git
 cd f1
 ```
 
@@ -38,11 +38,19 @@ pyenv local 3.12.10
 ### 3. Inicializar o Ambiente Virtual com Poetry
 
 ```bash
-# Apontar o Poetry para o binário do pyenv
-poetry env use $(pyenv which python)
-
 # Instalar todas as dependências de produção e desenvolvimento
 poetry install
+```
+
+Para selecionar explicitamente o interpretador do pyenv, use o comando compatível
+com o seu shell:
+
+```powershell
+poetry env use (pyenv which python)
+```
+
+```bash
+poetry env use "$(pyenv which python)"
 ```
 
 ### 4. Validar o Ambiente

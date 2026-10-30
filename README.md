@@ -26,7 +26,7 @@ O projeto utiliza o **Poetry** para isolamento e gerenciamento de dependências:
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/f1.git
+git clone https://github.com/estudarposnascimento/f1.git
 cd f1
 
 # Garanta a versão correta do Python (3.12+)
