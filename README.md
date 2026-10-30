@@ -15,6 +15,7 @@ SDK Python moderno, fortemente tipado e resiliente para consumo, modelagem e an�
 - **Tipagem Forte e Validação com Pydantic v2:** Validação em tempo de execução com schemas tipados para cada entidade.
 - **Filtros Avançados:** Suporte nativo a operadores de comparação (`=`, `<`, `<=`, `>`, `>=`), valores múltiplos e o identificador `latest`.
 - **Análise de Dados com Pandas:** Métodos auxiliares para converter coleções de dados diretamente em `pandas.DataFrame` ou consumir o formato CSV nativo da API.
+- **Pipeline DuckDB em camadas:** Armazenamento RAW append-only, controle METADATA, transformação REFINED com validação/SCD Tipo 2 e resumo GOLD por piloto e sessão.
 - **Resiliência HTTP:** Retry com backoff exponencial automático para erros transitórios (429, 500, 502, 503, 504) e timeouts defensivos configuráveis.
 - **Padrões de Engenharia Estritos:** 100% aderente ao layout `src/`, formatação e linting via Ruff, cobertura de testes com Pytest >= 50% e documentação técnica em MkDocs Material.
 
@@ -90,6 +91,22 @@ with open("meetings_2024.csv", "w", encoding="utf-8") as f:
 # Iniciar o dashboard analítico
 poetry run task dashboard
 ```
+
+### 5. Persistência e Tratamento com DuckDB
+
+```python
+from f1 import F1AnalyticsPipeline, OpenF1Client
+
+with OpenF1Client() as client, F1AnalyticsPipeline("formula1.duckdb") as pipeline:
+    meetings = client.get_meetings(year=2024)
+    pipeline.ingest_raw("meetings", meetings, year_reference=2024)
+    pipeline.transform_refined("meetings")
+```
+
+O pipeline inicializa o arquivo e os schemas `raw`, `metadata`, `refined` e `gold`.
+Para criar o resumo GOLD, ingira e transforme sessões, pilotos, voltas e resultados;
+fatos dependem dessas dimensões para validar suas chaves. A DuckDB UI apenas abre um
+banco já existente.
 
 ---
 

@@ -1,5 +1,6 @@
 """OpenF1 Python SDK - Biblioteca cliente para dados e telemetria da Fórmula 1."""
 
+from f1.analytics import F1AnalyticsPipeline
 from f1.clients.base import BaseHTTPClient
 from f1.clients.openf1 import OpenF1Client
 from f1.core.constants import (
@@ -37,6 +38,7 @@ from f1.exceptions import (
     OpenF1Exception,
     OpenF1ValidationError,
 )
+from f1.pipeline.common import IngestionResult, TransformationResult
 from f1.utils.dataframe import to_dataframe
 from f1.utils.datetime import format_utc_iso, parse_iso_datetime
 
@@ -52,6 +54,8 @@ __all__ = [
     "DRSStatus",
     "Driver",
     "FlagType",
+    "F1AnalyticsPipeline",
+    "IngestionResult",
     "Interval",
     "Lap",
     "Meeting",
@@ -71,6 +75,7 @@ __all__ = [
     "StartingGrid",
     "Stint",
     "TeamRadio",
+    "TransformationResult",
     "TyreCompound",
     "Weather",
     "__version__",

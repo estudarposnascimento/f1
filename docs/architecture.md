@@ -40,3 +40,19 @@ flowchart TD
 - `OpenF1APIError`: Disparada sob falhas de código HTTP 4xx ou 5xx.
 - `OpenF1ConnectionError`: Disparada sob desconexão ou timeout.
 - `OpenF1ValidationError`: Disparada sob dados de entrada ou respostas inválidas.
+
+### 5. Pipeline Analítico (`src/f1/pipeline/`)
+
+`F1AnalyticsPipeline`, exposta por `src/f1/analytics.py`, é uma facade compatível sobre
+camadas com responsabilidades separadas:
+
+| Módulo | Responsabilidade |
+| --- | --- |
+| `common.py` | Catálogo de endpoints, resultados e utilitários de hash, JSON e tipos SQL. |
+| `database.py` | Conexão, criação de schemas e tabelas de METADATA/rejeições. |
+| `raw.py` | Ingestão append-only, payload original, hash e histórico de extrações. |
+| `refined.py` | Validação, normalização UTC, integridade, rejeições, dimensões, fatos e SCD Tipo 2. |
+| `marts.py` | Carrega os scripts versionados em `sql/gold/` e materializa as views de resumo e indicadores. |
+
+O pipeline não faz chamadas HTTP por conta própria. Os registros retornados pelo
+`OpenF1Client` são entregues a `ingest_raw()` e processados na ordem RAW → REFINED → marts.

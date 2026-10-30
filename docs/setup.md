@@ -71,6 +71,7 @@ O arquivo `pyproject.toml` isola as dependências em dois grupos:
     - `pydantic>=2.7.0`: Validação e esquemas de dados.
     - `requests>=2.31.0`: Comunicação HTTP resiliente.
     - `pandas>=2.2.0`: Análise e manipulação tabular.
+    - `duckdb>=2.0.0`: Persistência local e consultas SQL analíticas.
 - **Desenvolvimento (`tool.poetry.group.dev.dependencies`):**
     - `pytest>=8.2.0`: Framework de testes unitários.
     - `pytest-cov>=5.0.0`: Relatórios de cobertura de código.

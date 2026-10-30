@@ -1,10 +1,10 @@
 # Especificação do Pipeline Analítico
 
-!!! warning "Status da implementação"
-		Este documento descreve a arquitetura-alvo do pipeline analítico. O repositório
-		atualmente contém o SDK cliente OpenF1; a ingestão, o banco DuckDB e as camadas
-		`raw`, `metadata`, `refined` e `gold` ainda não estão implementados. A configuração
-		vigente do pacote continua definida em `pyproject.toml`.
+!!! note "Status da implementação"
+	O pipeline está separado em `src/f1/pipeline/database.py`, `raw.py`, `refined.py`
+	e `marts.py`; `src/f1/analytics.py` mantém a facade compatível. A configuração do
+	projeto continua usando Python 3.12.10+, Poetry e `requests`; Python 3.13, `uv` e
+	HTTPX permanecem tecnologias-alvo, ainda não migradas.
 
 ## Tecnologias-alvo
 
@@ -21,9 +21,8 @@
 | SHA-256 | Identificação e comparação de conteúdo. |
 | Git | Controle de versão do código e da documentação. |
 
-> Antes de tratar essa pilha como ambiente executável, alinhe `pyproject.toml`, o
-> lockfile e os guias de instalação com Python 3.13 e `uv`. Hoje o pacote ainda declara
-> Python 3.12.10 ou superior, Poetry e `requests`.
+> A tabela registra a pilha desejada para o pipeline. A instalação executável atual
+> está descrita no `pyproject.toml` e usa Poetry e `requests`.
 
 ## Banco de dados
 
@@ -209,20 +208,36 @@ silencioso:
 `driver_number` não é identificador global suficiente entre temporadas. Preserve o
 contexto da sessão e o histórico dimensional em toda associação.
 
-Exemplo de consulta analítica planejada, após a criação das tabelas REFINED:
+## Indicadores SQL em GOLD
+
+`F1AnalyticsPipeline.build_gold()` cria a view-base `gold.resultados_corrida` e cinco
+views de indicadores. As métricas de corrida consideram apenas sessões cujo nome é
+`Race` e que não estejam canceladas; sprints e outras sessões ficam fora desse recorte.
+
+| View | Arquivo SQL | Regra de cálculo | Granularidade |
+| --- | --- | --- | --- |
+| `gold.indicador_vitorias` | `sql/gold/indicador_vitorias.sql` | Contagem de resultados com posição final 1. | Temporada e piloto. |
+| `gold.indicador_podios` | `sql/gold/indicador_podios.sql` | Contagem de posições 1 a 3, largadas e taxa de pódio percentual. DNS é excluído das largadas. | Temporada e piloto. |
+| `gold.indicador_abandonos` | `sql/gold/indicador_abandonos.sql` | Contagem de DNF, largadas e taxa de abandono percentual. DNS é excluído das largadas. | Temporada e piloto. |
+| `gold.indicador_voltas_mais_rapidas` | `sql/gold/indicador_voltas_mais_rapidas.sql` | Melhor tempo válido da temporada e quantidade de corridas em que o piloto registrou a volta mais rápida. Empates são contados para cada piloto empatado. | Temporada e piloto. |
+| `gold.indicador_paradas_box` | `sql/gold/indicador_paradas_box.sql` | Quantidade de paradas com `stop_duration` e média desse tempo em segundos. | Temporada e piloto. |
+
+A view-base de resultados está em `sql/gold/resultados_corrida.sql`. Quando o endpoint
+de pit stops não foi ingerido, `sql/gold/indicador_paradas_box_sem_dados.sql` cria a
+mesma view sem registros.
+
+Se `refined.fato_pit_stops` ainda não existir porque o endpoint não teve dados, a view
+`gold.indicador_paradas_box` é criada com o mesmo esquema e sem linhas. Nenhum dado é
+fabricado para preencher a ausência.
+
+Exemplo de consulta de classificação de vitórias:
 
 ```sql
 SELECT
-		gp.meeting_name,
-		sess.session_name,
-		volta.driver_number,
-		volta.lap_number,
-		volta.lap_duration
-FROM refined.fato_voltas AS volta
-JOIN refined.dim_sessoes AS sess
-		ON sess.session_key = volta.session_key
-JOIN refined.dim_grandes_premios AS gp
-		ON gp.meeting_key = sess.meeting_key
-WHERE sess.year = 2024
-ORDER BY gp.meeting_name, volta.driver_number, volta.lap_number;
+    ano_referencia,
+    driver_number,
+    vitorias
+FROM gold.indicador_vitorias
+WHERE ano_referencia = 2024
+ORDER BY vitorias DESC, driver_number;
 ```
